@@ -21,20 +21,67 @@ var Tasse = /** @class */ (function () {
 }());
 var Lavoratore = /** @class */ (function (_super) {
     __extends(Lavoratore, _super);
-    function Lavoratore() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Lavoratore(_redditoLordo) {
+        return _super.call(this, _redditoLordo) || this;
     }
     Lavoratore.prototype.getUtileTasse = function () {
-        this.redditoLordo - 22;
+        var result = this.redditoLordo * 0.22;
+        var result2 = this.redditoLordo - result;
+        return result2;
     };
     Lavoratore.prototype.getTasseIrpef = function () {
-        return;
+        return 0;
     };
     Lavoratore.prototype.getTasseInps = function () {
-        return;
+        return 0;
     };
     Lavoratore.prototype.getTasseNetto = function () {
-        return getUtileTasse() - getTasseIrpef() - getTasseInps();
+        return this.getUtileTasse() - this.getTasseIrpef() - this.getTasseInps();
     };
     return Lavoratore;
 }(Tasse));
+var Professionista = /** @class */ (function (_super) {
+    __extends(Professionista, _super);
+    function Professionista() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Professionista.prototype.getTasseIrpef = function () {
+        var resultIrpef = this.getUtileTasse() * 0.05;
+        var resultIrpef2 = this.getUtileTasse() - resultIrpef;
+        return resultIrpef2;
+    };
+    Professionista.prototype.getTasseInps = function () {
+        var resultInps = this.getUtileTasse() * 0.25;
+        var resultInps2 = this.getUtileTasse() - resultInps;
+        return resultInps2;
+    };
+    return Professionista;
+}(Lavoratore));
+var newProfessionista = new Professionista(1000);
+console.log(newProfessionista);
+var Artigiano = /** @class */ (function (_super) {
+    __extends(Artigiano, _super);
+    function Artigiano() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Artigiano.prototype.getTasseIrpef = function () {
+        return this.getUtileTasse() * 0.15;
+    };
+    Artigiano.prototype.getTasseInps = function () {
+        return this.getUtileTasse() * 0.15;
+    };
+    return Artigiano;
+}(Lavoratore));
+var Commerciante = /** @class */ (function (_super) {
+    __extends(Commerciante, _super);
+    function Commerciante() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Commerciante.prototype.getTasseIrpef = function () {
+        return this.getUtileTasse() * 0.15;
+    };
+    Commerciante.prototype.getTasseInps = function () {
+        return this.getUtileTasse() * 0.35;
+    };
+    return Commerciante;
+}(Lavoratore));
